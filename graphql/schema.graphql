@@ -1,0 +1,36 @@
+scalar Date
+
+type Query {
+  match(id: ID): Match!
+  matches: [Match]!
+  history(playerID: ID!, after: Date, before: Date): [Match]!
+}
+
+type Mutation {
+  enter(playerID: ID!, playerRating: Int!): Status!
+  leave(playerID: ID!): Status!
+  updateMatch(id: ID!, state: String!, move: String!): Status!
+}
+
+type Status {
+  success: Boolean
+  message: String
+}
+
+type Match {
+  id: ID
+  type: String
+
+  player1ID: ID
+  player2ID: ID
+
+  status: String
+  winner: String
+
+  toMove: Boolean
+  state: String
+  moves: [String]
+
+  startedAt: Date
+  finishedAt: Date
+}

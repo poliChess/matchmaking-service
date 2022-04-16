@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:pass@localhost:5432/matchmaking?schema=public"
+}
+
+model Queue {
+  playerID  String   @id
+  rating    Int
+  enteredAt DateTime @db.Timestamp() @default(now())
+}
+
+model Match {
+  id        String    @id @default(uuid())
+  type      GameType  @default(NORMAL)
+  player1ID String
+  player2ID String
+  toMove    Boolean
+  status    Status    @default(WAITING)
+  winner    Winner    @default(NONE)
+  state     String    @default("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+  moves     String[]
+  createdAt DateTime  @db.Timestamp() @default(now())
+  startedAt DateTime? @db.Timestamp() 
+}
+
+model History {
+  id         String   @id @default(uuid())
+  type       GameType @default(NORMAL)
+  player1ID  String
+  player2ID  String
+  winner     Winner
+  state      String
+  moves      String[]
+  startedAt  DateTime @db.Timestamp()
+  finishedAt DateTime @db.Timestamp() @default(now())
+}
+
+enum Status {
+  WAITING
+  STARTED
+  FINISHED
+}
+
+enum Winner {
+  NONE
+  STALEMATE
+  DRAW
+  PLAYER1
+  PLAYER2
+}
+
+enum GameType {
+  NORMAL
+  PRIVATE
+  COMPUTER
+}
