@@ -1,14 +1,19 @@
 scalar Date
 
 type Query {
-  match(id: ID): Match!
-  matches: [Match]!
+  running: String
+
+  match(id: ID): Match
+  matchWithPlayer(playerID: ID): Match
+  matches: [Match!]!
+
   history(playerID: ID!, after: Date, before: Date): [Match]!
 }
 
 type Mutation {
-  enter(playerID: ID!, playerRating: Int!): Status!
-  leave(playerID: ID!): Status!
+  enterQueue(playerID: ID!, playerRating: Int!): Status!
+  leaveQueue(playerID: ID!): Status!
+
   updateMatch(id: ID!, state: String!, move: String!): Status!
 }
 

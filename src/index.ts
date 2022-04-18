@@ -4,7 +4,7 @@ import { graphqlHTTP } from 'express-graphql';
 import graphqlSchema from '../graphql/schema';
 import graphqlResolver from './resolver';
 
-async function main() {
+function main() {
   const server = express();
   server.use(bodyParser.json());
 
@@ -23,4 +23,4 @@ async function main() {
   });
 }
 
-main().catch(reason => { console.warn(reason) });
+main()

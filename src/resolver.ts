@@ -1,15 +1,19 @@
 import { enterQueue, leaveQueue } from './resolvers/queue';
-import { getMatch, getMatches, updateMatch } from './resolvers/match';
+import { getMatch, getMatchWithPlayer, getMatches, updateMatch } from './resolvers/match';
 import { getHistory } from './resolvers/history';
 
 const resolver = {
-  match: getMatch,
-  matches: getMatches,
-  history: getHistory,
+  running: () => "yes",
 
-  enter: enterQueue,
-  leave: leaveQueue,
-  updateMatch: updateMatch
+  enterQueue: enterQueue,
+  leaveQueue: leaveQueue,
+
+  match: getMatch,
+  matchWithPlayer: getMatchWithPlayer,
+  matches: getMatches,
+  updateMatch: updateMatch,
+
+  history: getHistory,
 }
 
 export default resolver;

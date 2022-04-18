@@ -18,7 +18,7 @@ model Match {
   type      GameType  @default(NORMAL)
   player1ID String
   player2ID String
-  toMove    Boolean
+  toMove    Boolean   @default(false)
   status    Status    @default(WAITING)
   winner    Winner    @default(NONE)
   state     String    @default("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")

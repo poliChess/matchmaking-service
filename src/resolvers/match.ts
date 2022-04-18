@@ -40,12 +40,23 @@ async function updateMatch(args: { id: string, state: string, move: string }) {
   });
 }
 
-async function getMatches() {
-    return await prisma.match.findMany();
+async function getMatchWithPlayer(args: { playerID: string }) {
+  return await prisma.match.findFirst({
+    where: {
+      OR: [
+        { player1ID: args.playerID },
+        { player2ID: args.playerID }
+      ],
+    }
+  });
 }
 
 async function getMatch(args: { id: string }) {
   return await prisma.match.findUnique({where: { id: args.id }})
 }
 
-export { createMatch, getMatches, getMatch, updateMatch }
+async function getMatches() {
+  return await prisma.match.findMany();
+}
+
+export { createMatch, getMatches, getMatch, getMatchWithPlayer, updateMatch }
