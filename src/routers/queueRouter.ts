@@ -5,7 +5,7 @@ import { statusBad } from '../utils';
 
 const queueRouter = express.Router();
 
-queueRouter.post('/enter', (req, res) => {
+queueRouter.post('/enter', async (req, res) => {
   const playerID = req.body.playerID;
   const playerRating = req.body.playerRating;
 
@@ -14,10 +14,10 @@ queueRouter.post('/enter', (req, res) => {
     return;
   }
 
-  res.send(enterQueue({ playerID, playerRating }));
+  res.send(await enterQueue({ playerID, playerRating }));
 });
 
-queueRouter.post('/leave', (req, res) => {
+queueRouter.post('/leave', async (req, res) => {
   const playerID = req.body.playerID;
 
   if (!playerID) {
@@ -25,7 +25,7 @@ queueRouter.post('/leave', (req, res) => {
     return;
   }
 
-  res.send(leaveQueue({ playerID }));
+  res.send(await leaveQueue({ playerID }));
 });
 
 export default queueRouter;

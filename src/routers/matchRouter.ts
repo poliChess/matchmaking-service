@@ -1,13 +1,20 @@
 import express from 'express';
 
-import { getMatches, updateMatch } from '../resolvers/match';
+import { getMatches, getMatchWithPlayer, updateMatch } from '../resolvers/match';
 import { getHistory } from '../resolvers/history';
 import { statusBad } from '../utils';
 
 const matchRouter = express.Router();
 
-matchRouter.get('/current', (_, res) => {
-  res.send(getMatches());
+matchRouter.get('/current', async (req, res) => {
+  const playerID = req.body.playerID; 
+
+  if (playerID) {
+    res.send(await getMatchWithPlayer({ playerID }));
+    return;
+  }
+
+  res.send(await getMatches());
 });
 
 matchRouter.post('/update', (req, res) => {
@@ -23,7 +30,7 @@ matchRouter.post('/update', (req, res) => {
   res.send(updateMatch({ id, move, state }));
 });
 
-matchRouter.get('/history', (req, res) => {
+matchRouter.get('/history', async (req, res) => {
   const playerID = req.body.playerID;
   const after  = req.body.after;
   const before = req.body.before;
@@ -33,7 +40,7 @@ matchRouter.get('/history', (req, res) => {
     return;
   }
 
-  res.send(getHistory({ playerID, after, before }));
+  res.send(await getHistory({ playerID, after, before }));
 });
 
 
