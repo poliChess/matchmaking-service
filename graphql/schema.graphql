@@ -1,7 +1,7 @@
 scalar Date
 
 type Query {
-  running: String
+  running: String!
 
   match(id: ID): Match
   matchWithPlayer(playerID: ID): Match
@@ -18,24 +18,24 @@ type Mutation {
 }
 
 type Status {
-  success: Boolean
-  message: String
+  success: Boolean!
+  message: String!
 }
 
 type Match {
-  id: ID
-  type: String
+  id: ID!
+  type: String!
 
-  player1ID: ID
+  player1ID: ID!
   player2ID: ID
 
-  status: String
-  winner: String
+  status: String!
+  winner: String!
 
-  toMove: Boolean
-  state: String
-  moves: [String]
+  toMove: Boolean!
+  state: String!
+  moves: [String]!
 
-  startedAt: Date
+  startedAt: Date!
   finishedAt: Date
 }
