@@ -4,13 +4,16 @@ import { graphqlHTTP } from 'express-graphql';
 import graphqlSchema from '../graphql/schema';
 import graphqlResolver from './resolver';
 
+import matchRouter from './routers/matchRouter';
+import queueRouter from './routers/queueRouter';
+
 function main() {
   const server = express();
   server.use(bodyParser.json());
 
   server.get('/running', (_ ,res) => {
     res.send("yes");
-  })
+  });
 
   server.use('/graphql', graphqlHTTP({
     schema: graphqlSchema,
@@ -18,7 +21,10 @@ function main() {
     graphiql: true
   }));
 
-  server.listen(3000, () => { 
+  server.use('/match', matchRouter);
+  server.use('/queue', queueRouter);
+
+  server.listen(3002, () => { 
     console.log("matchmaking service started")
   });
 }
