@@ -8,6 +8,9 @@ COPY . .
 EXPOSE 3000
 
 RUN npm install
+
+RUN npx prisma generate
+
 RUN npm run build
 
-CMD ["npm", "run", "start"]
+CMD npx prisma db push ; npm run start
