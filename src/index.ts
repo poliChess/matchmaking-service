@@ -6,6 +6,7 @@ import graphqlResolver from './resolver';
 
 import matchRouter from './routers/matchRouter';
 import queueRouter from './routers/queueRouter';
+import matchmake from './matchmake';
 
 function main() {
   const server = express();
@@ -27,6 +28,8 @@ function main() {
   server.listen(3000, () => { 
     console.log("matchmaking service started")
   });
+
+  setInterval(() => matchmake(), 3000);
 }
 
 main()

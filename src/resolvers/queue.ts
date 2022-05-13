@@ -37,4 +37,8 @@ async function leaveQueue(args: { playerID: string }) {
   });
 }
 
-export { enterQueue, leaveQueue }
+async function getQueued() {
+  return prisma.queue.findMany({ orderBy: { rating: 'asc' } });
+}
+
+export { enterQueue, leaveQueue, getQueued }
