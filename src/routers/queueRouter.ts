@@ -2,6 +2,8 @@ import express from 'express';
 
 import { enterQueue, leaveQueue } from '../resolvers/queue';
 import { createMatch } from '../resolvers/match';
+import { startGame } from '../service/websocket';
+import { getUsername } from '../service/user';
 import { statusGood, statusBad } from '../utils';
 
 const queueRouter = express.Router();
@@ -20,7 +22,16 @@ queueRouter.post('/enter', async (req, res) => {
 
   if (computer) {
     res.send(statusGood);
-    await createMatch({ player1ID: playerID, player2ID: 'computer' });
+    const match = await createMatch({ player1ID: playerID, player2ID: 'computer' });
+
+    await startGame({
+      matchID: match.id,
+      player1ID: playerID,
+      player1Username: await getUsername(playerID),
+      player2ID: 'computer',
+      player2Username: 'computer',
+    });
+
     return;
   } 
 

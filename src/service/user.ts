@@ -1,3 +1,4 @@
+import "isomorphic-unfetch";
 import { createClient } from "@urql/core";
 
 const client = createClient({

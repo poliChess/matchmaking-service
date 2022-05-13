@@ -2,16 +2,14 @@ import prisma from '../../prisma/client';
 import { statusBad, statusGood } from '../utils'
 
 async function createMatch(args: { player1ID: string, player2ID: string }) {
-  await prisma.match.create({
+  return await prisma.match.create({
     data: {
       player1ID: args.player1ID,
       player2ID: args.player2ID,
       type: args.player2ID == 'computer' ? "COMPUTER" : "NORMAL",
       toMove: false
     }
-  }).catch(exception => {
-    console.log(exception);
-  })
+  });
 }
 
 async function updateMatch(args: { id: string, state: string, move: string }) {

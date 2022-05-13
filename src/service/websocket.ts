@@ -11,6 +11,8 @@ type StartGameArgs =  {
 }
 
 async function startGame(args: StartGameArgs) {
-  const res = await axios.post(`${url}/startGame`, { data: args });
+  const res = await axios.post(`${url}/startGame`, args);
   return res.data;
 }
+
+export { startGame }
