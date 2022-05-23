@@ -30,16 +30,8 @@ async function getHistory(args: { playerID: string, after: string, before: strin
   });
 }
 
-async function insertInHistory(data: { 
-    player1ID: string,
-    player2ID: string,
-    winner: 'NONE' | 'STALEMATE' | 'DRAW' | 'PLAYER1' | 'PLAYER2',
-    state: string,
-    moves: string[],
-    startedAt: Date
-  }) {
-  
-  await prisma.history.create({ data: data });
+async function insertInHistory(data: any) {
+  await prisma.history.create({ data });
 }
 
 export { getHistory, insertInHistory }

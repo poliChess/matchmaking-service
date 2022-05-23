@@ -58,4 +58,8 @@ async function getMatches() {
   return await prisma.match.findMany();
 }
 
-export { createMatch, getMatches, getMatch, getMatchWithPlayer, updateMatch }
+async function getAndDeleteMatch(args: { id: string }) {
+  return await prisma.match.delete({where: { id: args.id }})
+}
+
+export { createMatch, getMatches, getMatch, getMatchWithPlayer, getAndDeleteMatch, updateMatch }
