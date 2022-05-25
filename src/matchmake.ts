@@ -1,6 +1,5 @@
 import { getQueued, leaveQueue } from './resolvers/queue';
 import { startGame } from './service/websocket';
-import { getUsername } from './service/user';
 import { createMatch } from './resolvers/match';
 
 type Player = { playerID: string, rating: number, enteredAt: Date }
@@ -70,9 +69,7 @@ async function matchPlayers(player1: Player, player2: Player) {
   await startGame({
     matchID: match.id,
     player1ID: match.player1ID,
-    player1Username: await getUsername(match.player1ID),
     player2ID: match.player2ID,
-    player2Username: await getUsername(match.player2ID)
   });
 }
 

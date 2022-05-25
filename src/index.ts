@@ -25,7 +25,7 @@ function main() {
   server.use('/match', matchRouter);
   server.use('/queue', queueRouter);
 
-  server.listen(3000, () => { 
+  server.listen(3000, () => {
     console.log("matchmaking service started")
   });
 

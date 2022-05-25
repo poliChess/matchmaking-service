@@ -5,9 +5,7 @@ const url = 'http://websocket-server:3000';
 type StartGameArgs =  {
   matchID: string, 
   player1ID: string,
-  player2ID: string,
-  player1Username: string
-  player2Username: string
+  player2ID: string
 }
 
 async function startGame(args: StartGameArgs) {
