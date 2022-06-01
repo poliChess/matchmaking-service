@@ -9,12 +9,10 @@ const matchRouter = express.Router();
 matchRouter.get('/current', async (req, res) => {
   const playerID = req.body.playerID; 
 
-  if (playerID) {
-    res.send(await getMatchWithPlayer({ playerID }));
-    return;
-  }
+  if (playerID)
+    return res.send(await getMatchWithPlayer({ playerID }));
 
-  res.send(await getMatches());
+  return res.send(await getMatches());
 });
 
 matchRouter.post('/update', (req, res) => {
