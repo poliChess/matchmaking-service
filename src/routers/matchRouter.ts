@@ -15,7 +15,7 @@ matchRouter.get('/current', async (req, res) => {
   return res.send(await getMatches());
 });
 
-matchRouter.post('/update', (req, res) => {
+matchRouter.post('/update', async (req, res) => {
   const id    = req.body.id;
   const move  = req.body.move;
   const state = req.body.state;
@@ -25,7 +25,7 @@ matchRouter.post('/update', (req, res) => {
     return;
   }
 
-  res.send(updateMatch({ id, move, state }));
+  res.send(await updateMatch({ id, move, state }));
 });
 
 matchRouter.post('/end', async (req, res) => {

@@ -26,8 +26,6 @@ async function updateMatch(args: { id: string, state: string, move: string }) {
     return statusBad('match doesn\'t exist');
 
   const board = args.state.substring(0, args.state.indexOf(' '));
-  console.log(board);
-
   let result: string | null = null;
 
   let count = 1;
@@ -40,8 +38,6 @@ async function updateMatch(args: { id: string, state: string, move: string }) {
       }
     }
   }
-  
-  console.log(result);
 
   return await prisma.match.update({
     where: { id: args.id },
