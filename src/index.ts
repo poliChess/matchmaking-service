@@ -1,9 +1,6 @@
 import 'isomorphic-unfetch';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { graphqlHTTP } from 'express-graphql';
-import graphqlSchema from '../graphql/schema';
-import graphqlResolver from './resolver';
 
 import matchRouter from './routers/matchRouter';
 import queueRouter from './routers/queueRouter';
@@ -16,12 +13,6 @@ function main() {
   server.get('/running', (_ ,res) => {
     res.send("yes");
   });
-
-  server.use('/graphql', graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: graphqlResolver,
-    graphiql: true
-  }));
 
   server.use('/match', matchRouter);
   server.use('/queue', queueRouter);

@@ -1,8 +1,8 @@
 import prisma from '../../prisma/client';
 import { statusBad, statusGood } from '../utils'
 
-async function createMatch(args: { player1ID: string, player2ID: string }) {
-  return await prisma.match.create({
+function createMatch(args: { player1ID: string, player2ID: string }) {
+  return prisma.match.create({
     data: {
       player1ID: args.player1ID,
       player2ID: args.player2ID,
@@ -17,30 +17,50 @@ async function updateMatch(args: { id: string, state: string, move: string }) {
     where: { id: args.id },
     select: {
       toMove: true,
-      moves: true
+      moves: true,
+      boards: true
     }
   })
 
   if (!match)
     return statusBad('match doesn\'t exist');
 
+  const board = args.state.substring(0, args.state.indexOf(' '));
+  console.log(board);
+
+  let result: string | null = null;
+
+  let count = 1;
+  for (const pastBoard of match.boards) {
+    if (board === pastBoard) {
+      count += 1;
+      if (count === 3) {
+        result = 'DRAW';
+        break;
+      }
+    }
+  }
+  
+  console.log(result);
+
   return await prisma.match.update({
     where: { id: args.id },
     data: {
       toMove: !match.toMove,
       state: args.state,
-      moves: [...match.moves, args.move]
+      moves: [...match.moves, args.move],
+      boards: [...match.boards, board]
     }
   }).then(() => {
-    return statusGood;
+    return { ...statusGood, result };
   }).catch(exception => {
     console.warn(exception);
     return statusBad('unknown error'); 
   });
 }
 
-async function getMatchWithPlayer(args: { playerID: string }) {
-  return await prisma.match.findFirst({
+function getMatchWithPlayer(args: { playerID: string }) {
+  return prisma.match.findFirst({
     where: {
       OR: [
         { player1ID: args.playerID },
@@ -50,16 +70,16 @@ async function getMatchWithPlayer(args: { playerID: string }) {
   });
 }
 
-async function getMatch(args: { id: string }) {
-  return await prisma.match.findUnique({where: { id: args.id }})
+function getMatch(args: { id: string }) {
+  return prisma.match.findUnique({where: { id: args.id }})
 }
 
-async function getMatches() {
-  return await prisma.match.findMany();
+function getMatches() {
+  return prisma.match.findMany();
 }
 
-async function getAndDeleteMatch(args: { id: string }) {
-  return await prisma.match.delete({where: { id: args.id }})
+function getAndDeleteMatch(args: { id: string }) {
+  return prisma.match.delete({where: { id: args.id }})
 }
 
 export { createMatch, getMatches, getMatch, getMatchWithPlayer, getAndDeleteMatch, updateMatch }

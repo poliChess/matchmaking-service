@@ -21,6 +21,7 @@ model Match {
   toMove    Boolean   @default(false)
   state     String    @default("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
   moves     String[]
+  boards    String[]
   startedAt DateTime  @db.Timestamp() @default(now())
 }
 

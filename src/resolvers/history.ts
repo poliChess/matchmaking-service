@@ -8,7 +8,7 @@ function parseDate(arg: string) {
   return { valid: true, value: date }
 }
 
-async function getHistory(args: { playerID: string, after: string, before: string }) {
+function getHistory(args: { playerID: string, after: string, before: string }) {
   let timeQuery: any = {};
 
   const after = parseDate(args.after);
@@ -19,7 +19,7 @@ async function getHistory(args: { playerID: string, after: string, before: strin
   if (before.valid)
     timeQuery.lt = before.value;
 
-  return await prisma.history.findMany({
+  return prisma.history.findMany({
     where: {
       OR: [
         { player1ID: args.playerID },
