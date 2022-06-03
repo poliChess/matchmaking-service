@@ -2,7 +2,7 @@ import prisma from '../../prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { statusGood, statusBad } from '../utils';
 
-function enterQueue(args: { playerID: string, playerRating: number }) {
+async function enterQueue(args: { playerID: string, playerRating: number }) {
   return prisma.queue.create({ 
       data: {
         playerID: args.playerID,
@@ -21,7 +21,7 @@ function enterQueue(args: { playerID: string, playerRating: number }) {
   });
 };
 
-function leaveQueue(args: { playerID: string }) {
+async function leaveQueue(args: { playerID: string }) {
   return prisma.queue.delete({
     where: { playerID: args.playerID }
   }).then(() => {

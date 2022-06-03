@@ -9,9 +9,6 @@ let toggle = true;
 async function matchmake() {
   let queue = await getQueued();
 
-  if (queue.length > 0)
-    console.log(`players in queue: ${queue.map(x => JSON.stringify({ id: x.playerID, rating: x.rating}))}`);
-  
   if (toggle)
     matchAscending(queue);
   else
@@ -55,7 +52,6 @@ function matchDescending(queue: Player[]) {
 }
 
 async function matchPlayers(player1: Player, player2: Player) {
-  console.log('matched! \n -> ' + JSON.stringify(player1) + '\n -> ' + JSON.stringify(player2));
   leaveQueue({ playerID: player1.playerID });
   leaveQueue({ playerID: player2.playerID });
 

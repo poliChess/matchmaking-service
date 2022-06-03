@@ -12,8 +12,6 @@ queueRouter.post('/enter', async (req, res) => {
   const playerRating = req.body.playerRating;
   const computer = req.body.computer;
 
-  console.log('-> entering queue ' + playerID + ' ' + computer);
-
   if (!playerID || !playerRating) {
     res.send(statusBad('bad request'));
     return;
@@ -37,8 +35,6 @@ queueRouter.post('/enter', async (req, res) => {
 
 queueRouter.post('/leave', async (req, res) => {
   const playerID = req.body.playerID;
-
-  console.log('-> leaving queue ' + playerID);
 
   if (!playerID) {
     res.send(statusBad('bad request'));
