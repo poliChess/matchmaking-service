@@ -28,7 +28,7 @@ queueRouter.post('/enter', async (req, res) => {
     });
 
     return;
-  } 
+  }
 
   res.send(await enterQueue({ playerID, playerRating }));
 });

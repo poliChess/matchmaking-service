@@ -7,7 +7,7 @@ import { statusBad, statusGood } from '../utils';
 const matchRouter = express.Router();
 
 matchRouter.get('/current', async (req, res) => {
-  const playerID = req.body.playerID; 
+  const playerID = req.body.playerID;
 
   if (playerID)
     return res.send(await getMatchWithPlayer({ playerID }));
@@ -16,8 +16,8 @@ matchRouter.get('/current', async (req, res) => {
 });
 
 matchRouter.post('/update', async (req, res) => {
-  const id    = req.body.id;
-  const move  = req.body.move;
+  const id = req.body.id;
+  const move = req.body.move;
   const state = req.body.state;
 
   if (!id || !move || !state) {
@@ -55,13 +55,13 @@ matchRouter.post('/end', async (req, res) => {
     winner: result.toUpperCase(),
     startedAt
   });
-  
+
   res.send(statusGood);
 })
 
 matchRouter.get('/history', async (req, res) => {
   const playerID = req.body.playerID;
-  const after  = req.body.after;
+  const after = req.body.after;
   const before = req.body.before;
 
   if (!playerID) {

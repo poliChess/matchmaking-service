@@ -2,6 +2,8 @@ import 'isomorphic-unfetch';
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import discovery from './grpc/discovery';
+
 import matchRouter from './routers/matchRouter';
 import queueRouter from './routers/queueRouter';
 import matchmake from './matchmake';
@@ -10,7 +12,7 @@ function main() {
   const server = express();
   server.use(bodyParser.json());
 
-  server.get('/running', (_ ,res) => {
+  server.get('/running', (_, res) => {
     res.send("yes");
   });
 
@@ -22,6 +24,8 @@ function main() {
   });
 
   setInterval(() => matchmake(), 3000);
+
+  discovery.register('matchmaking-service', 'matchmaking-service:3000');
 }
 
 main()

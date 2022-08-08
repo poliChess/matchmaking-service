@@ -51,7 +51,7 @@ async function updateMatch(args: { id: string, state: string, move: string }) {
     return { ...statusGood, result };
   }).catch(exception => {
     console.warn(exception);
-    return statusBad('unknown error'); 
+    return statusBad('unknown error');
   });
 }
 
@@ -67,7 +67,7 @@ function getMatchWithPlayer(args: { playerID: string }) {
 }
 
 function getMatch(args: { id: string }) {
-  return prisma.match.findUnique({where: { id: args.id }})
+  return prisma.match.findUnique({ where: { id: args.id } })
 }
 
 function getMatches() {
@@ -75,7 +75,7 @@ function getMatches() {
 }
 
 function getAndDeleteMatch(args: { id: string }) {
-  return prisma.match.delete({where: { id: args.id }})
+  return prisma.match.delete({ where: { id: args.id } })
 }
 
 export { createMatch, getMatches, getMatch, getMatchWithPlayer, getAndDeleteMatch, updateMatch }
