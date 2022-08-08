@@ -15,7 +15,7 @@ function init() {
 
   const proto: any = loadPackageDefinition(packageDefinition).api;
 
-  client = new proto.ServiceDiscovery('service-discovery:3000', credentials.createInsecure());
+  client = new proto.ServiceDiscovery('discovery-service:3000', credentials.createInsecure());
 }
 
 function register(serviceName: string, serviceAddr: string) {
