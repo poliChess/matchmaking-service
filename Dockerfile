@@ -1,4 +1,4 @@
-FROM node:18-alpine as base
+FROM node:18 as base
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -10,4 +10,4 @@ EXPOSE 3000
 RUN npm install --omit=dev
 RUN npx prisma generate
 
-CMD npx prisma db push ; npm run prod 
+CMD npx prisma db push ; npm run prod
